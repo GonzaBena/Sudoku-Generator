@@ -237,11 +237,17 @@ app.add_middleware(
 
 
 @app.get("/")
-async def root():
+async def root(difficult: str = ""):
+    print(difficult)
     sudoku = generate_sudoku(9)
     shuffle_rows_and_columns(sudoku)
     grid = sudoku.solution
-    sudoku.difficult = Difficult.MEDIUM
+    difficults = list(Difficult.__dict__["_member_map_"].keys())
+    if difficult != "" and difficult.upper() in difficults:
+        sudoku.difficult = Difficult[difficult.upper()]
+    else:
+        sudoku.difficult = Difficult[random.choice(difficults)]
+        print(random.choice(difficults))
     sudoku.matrix = remove_numbers(grid, sudoku.difficult)  # Assign the returned grid
     return {
         "puzzle": sudoku.matrix,
