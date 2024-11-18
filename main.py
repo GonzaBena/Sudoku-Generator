@@ -237,7 +237,7 @@ app.add_middleware(
 
 
 @app.get("/")
-async def root(difficult: str = ""):
+def root(difficult: str = ""):
     print(difficult)
     sudoku = generate_sudoku(9)
     shuffle_rows_and_columns(sudoku)
@@ -255,6 +255,11 @@ async def root(difficult: str = ""):
         "difficultLevel": sudoku.difficult.value,
         "solution": sudoku.solution,
     }
+
+
+@app.get("/difficults")
+def root():
+    return {"difficults": list(Difficult.__dict__["_member_map_"].keys())}
 
 
 if __name__ == "__main__":
