@@ -253,5 +253,5 @@ async def root():
 
 if __name__ == "__main__":
     main()
-    # port = int(os.environ.get("PORT", 8000))  # Usa el puerto especificado por Render
-    # uvicorn.run(app, host="0.0.0.0", port=port)
+    port = int(os.environ.get("PORT", 8000))  # Usa el puerto especificado por Render
+    uvicorn.run(app, host="0.0.0.0", port=port)
